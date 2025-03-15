@@ -1,0 +1,14 @@
+.main-container{
+  display: flex;
+  flex-direction: column;
+  padding: 0.625em;
+}
+
+header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-section{
+  cursor: pointer;
+}

@@ -1,0 +1,18 @@
+.file-node-section{
+    margin-top: 1em;
+}
+
+.file-node-section.child{
+    padding-left: 10px;
+}
+
+.folder,.file{
+    display: inline;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.folder:hover,.file:hover{
+    background-color: coral;
+    border-radius: 6px;
+}
