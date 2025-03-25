@@ -7,6 +7,10 @@
   padding: 0.5em;
 }
 
+.folder-section:hover,.file-section:hover{
+  cursor: grab;
+}
+
 .node-tools {
   display: flex;
   align-items: center;
@@ -19,14 +23,26 @@
 
 .folder,
 .file {
-  display: inline;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .file-section:hover,
 .folder-name-section:hover {
-  background-color: coral;
+  /* background-color: coral; */
   border-radius: 6px;
+}
+
+.folderName,
+.fileName {
+  all: unset;
+  padding: 8px;
+}
+.folderName:hover,
+.fileName:hover {
+  border: 1px solid black;
+  border-radius: 4px;
 }
 
 .delete-icon,
@@ -36,6 +52,6 @@
 
 .delete-icon svg,
 .edit-icon svg {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }

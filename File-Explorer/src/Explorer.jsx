@@ -53,6 +53,21 @@ const Explorer = () => {
     }
   };
 
+  const renameNode = (data, id, newName) => {
+    return data.map((node) => {
+      if (node?.id === id) return { ...node, name: newName };
+      else
+        return node?.children
+          ? { ...node, children: renameNode(node.children, id, newName) }
+          : node;
+    });
+  };
+
+  const onRenameNode = (id, newName) => {
+    console.log(id, fileStructure);
+    setFileStructure((preStruc) => renameNode(preStruc, id, newName));
+  };
+
   const deleteNode = (data, id) => {
     data.forEach((node, index) => {
       if (node.id === id) {
@@ -68,6 +83,19 @@ const Explorer = () => {
     const newStructure = JSON.parse(JSON.stringify(fileStructure));
     const updatedStructure = deleteNode(newStructure, id);
     setFileStructure(updatedStructure);
+  };
+
+  const onDragStart = (e, id) => {
+    e.dataTransfer.setData("id", id);
+  };
+
+  const onDrop = (e, targetId) => {
+    // e.preventDefault();
+    // const draggedId = e.dataTransfer.getData("id");
+    // let draggedItem = fileStructure.find((item) => item.id === draggedId);
+    // setStructure(
+    //   updateStructure(deleteItem(structure, draggedId), targetId, draggedItem)
+    // );
   };
 
   return (
@@ -86,6 +114,9 @@ const Explorer = () => {
           node={node}
           setActiveTree={setActiveTree}
           onDeleteNode={onDeleteNode}
+          onRenameNode={onRenameNode}
+          onDragStart={onDragStart}
+          onDrop={onDrop}
         />
       ))}
     </main>

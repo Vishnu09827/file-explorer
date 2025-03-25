@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  FaPen,
+  FaGripVertical,
   FaFile,
   FaFolder,
   FaFolderOpen,
@@ -8,7 +8,15 @@ import {
 } from "react-icons/fa";
 import "./FileNode.css";
 
-const FileNode = ({ node, isChild = false, setActiveTree, onDeleteNode }) => {
+const FileNode = ({
+  node,
+  isChild = false,
+  setActiveTree,
+  onDeleteNode,
+  onRenameNode,
+  onDragStart,
+  onDrop,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleFolder = (id) => {
@@ -17,15 +25,27 @@ const FileNode = ({ node, isChild = false, setActiveTree, onDeleteNode }) => {
   };
 
   const renderFolder = () => (
-    <div className="folder-section">
+    <div
+      className="folder-section"
+      draggable
+      onDragStart={(e) => onDragStart(e, node.id)}
+      onDrop={(e) => onDrop(e, node.id)}
+      onDragOver={(e) => e.preventDefault()}
+    >
       <div className="folder-name-section">
         <div className="folder" onClick={() => toggleFolder(node.id)}>
-          {isOpen ? <FaFolderOpen /> : <FaFolder />} {node.name}
+          <div className="drag-icon">
+            <FaGripVertical />
+          </div>
+          {isOpen ? <FaFolderOpen /> : <FaFolder />}
+          <input
+            className="folderName"
+            type="text"
+            value={node.name}
+            onChange={(e) => onRenameNode(node.id, e.target.value)}
+          />
         </div>
         <div className="node-tools">
-          <div className="edit-icon">
-            <FaPen />
-          </div>
           <div className="delete-icon" onClick={() => onDeleteNode(node.id)}>
             <FaTrashAlt />
           </div>
@@ -41,6 +61,9 @@ const FileNode = ({ node, isChild = false, setActiveTree, onDeleteNode }) => {
               isChild={true}
               setActiveTree={setActiveTree}
               onDeleteNode={onDeleteNode}
+              onRenameNode={onRenameNode}
+              onDragStart={onDragStart}
+              onDrop={onDrop}
             />
           ))}
         </div>
@@ -51,12 +74,16 @@ const FileNode = ({ node, isChild = false, setActiveTree, onDeleteNode }) => {
   const renderFile = () => (
     <div className="file-section">
       <div className="file">
-        <FaFile /> {node.name}
+        <FaGripVertical />
+        <FaFile />{" "}
+        <input
+          className="fileName"
+          type="text"
+          value={node.name}
+          onChange={(e) => onRenameNode(node.id, e.target.value)}
+        />
       </div>
       <div className="node-tools">
-        <div className="edit-icon">
-          <FaPen />
-        </div>
         <div className="delete-icon" onClick={() => onDeleteNode(node.id)}>
           <FaTrashAlt />
         </div>
