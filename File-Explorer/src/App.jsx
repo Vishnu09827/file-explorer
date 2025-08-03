@@ -1,6 +1,5 @@
 import { FaEllipsisH } from "react-icons/fa";
-import "./App.css";
-import Explorer from "./Explorer";
+import Explorer from "./components/Explorer";
 
 function App() {
   return (
@@ -11,7 +10,7 @@ function App() {
           <FaEllipsisH />
         </div>
       </header>
-      <Explorer/>
+      <Explorer />
     </main>
   );
 }

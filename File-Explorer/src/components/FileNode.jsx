@@ -6,7 +6,7 @@ import {
   FaFolderOpen,
   FaTrashAlt,
 } from "react-icons/fa";
-import "./FileNode.css";
+import "../styles/FileNode.css";
 
 const FileNode = ({
   node,
@@ -16,6 +16,7 @@ const FileNode = ({
   onRenameNode,
   onDragStart,
   onDrop,
+  itemTypes
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -64,6 +65,7 @@ const FileNode = ({
               onRenameNode={onRenameNode}
               onDragStart={onDragStart}
               onDrop={onDrop}
+              itemTypes={itemTypes}
             />
           ))}
         </div>
@@ -72,9 +74,14 @@ const FileNode = ({
   );
 
   const renderFile = () => (
-    <div className="file-section">
+    <div className="file-section" onClick={() => setActiveTree(null)} draggable
+      onDragStart={(e) => onDragStart(e, node.id)}
+      onDrop={(e) => onDrop(e, node.id)}
+      onDragOver={(e) => e.preventDefault()}>
       <div className="file">
-        <FaGripVertical />
+        <div className="drag-icon">
+          <FaGripVertical className="file-move-icon" />
+        </div>
         <FaFile />{" "}
         <input
           className="fileName"
@@ -93,7 +100,7 @@ const FileNode = ({
 
   return (
     <section className={`file-node-section ${isChild ? "child" : ""}`}>
-      {node.type === "folder" ? renderFolder() : renderFile()}
+      {node.type === itemTypes.FOLDER ? renderFolder() : renderFile()}
     </section>
   );
 };

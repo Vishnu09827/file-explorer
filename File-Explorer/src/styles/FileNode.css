@@ -7,7 +7,7 @@
   padding: 0.5em;
 }
 
-.folder-section:hover,.file-section:hover{
+.drag-icon:hover {
   cursor: grab;
 }
 
